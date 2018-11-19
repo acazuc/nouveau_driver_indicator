@@ -61,7 +61,12 @@ int main(int argc, char **argv)
 		tmp[0] = '\0';
 		GtkWidget *indicator_menu_item = gtk_menu_item_new_with_label(newline);
 		gtk_menu_append(GTK_MENU(indicator_menu), indicator_menu_item);
+		char *semi = strchr(newline, ':');
+		if (!semi)
+			break;
+		*semi = '\0';
 		g_signal_connect(indicator_menu_item, "activate", G_CALLBACK(menu_item_callback), strdup(newline));
+		*semi = ':';
 		newline = tmp + 1;
 	}
 display:
